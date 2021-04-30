@@ -17,14 +17,14 @@ public class UserInvocationHandler implements InvocationHandler {
         SqlSession session =null;
         Object obj = null;
         try{
-            session = UserUtil.getSqlSession();
+            session = sqlsessionUtil.getSqlSession();
             obj = method.invoke(target,args);
             session.commit();
         }catch (Exception e){
             session.rollback();
             e.printStackTrace();
         }finally {
-            UserUtil.sqlClose(session);
+            sqlsessionUtil.sqlClose(session);
         }
         return obj;
     }

@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import java.io.IOException;
 import java.io.InputStream;
 //user工具类 负责创建SqlSession
-public class UserUtil {
+public class sqlsessionUtil {
 
     private static InputStream inputStream;
     private static SqlSessionFactory sqlSessionFactory = null;
