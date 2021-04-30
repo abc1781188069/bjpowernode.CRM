@@ -24,6 +24,7 @@ public class UserInvocationHandler implements InvocationHandler {
             session.rollback();
             e.printStackTrace();
         }finally {
+
             sqlsessionUtil.sqlClose(session);
         }
         return obj;
