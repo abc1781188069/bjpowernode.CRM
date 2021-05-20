@@ -3,13 +3,47 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+    <filter>
+        <filter-name>UserFilter</filter-name>
+        <filter-class>com.bjpowernode.crm.filter.UserFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>UserFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>LoginFilter</filter-name>
+        <filter-class>com.bjpowernode.crm.filter.LoginFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>LoginFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.jsp</url-pattern>
+    </filter-mapping>
+
+
     <servlet>
         <servlet-name>UserController</servlet-name>
         <servlet-class>com.bjpowernode.crm.settings.web.controller.UserController</servlet-class>
-
     </servlet>
     <servlet-mapping>
         <servlet-name>UserController</servlet-name>
-        <url-pattern>/settings/web/controller.do</url-pattern>
+        <url-pattern>/settings/user/login.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>ActivityController</servlet-name>
+        <servlet-class>com.bjpowernode.crm.workbench.web.controller.ActivityController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ActivityController</servlet-name>
+        <url-pattern>/workbench/activity/getUserList.do</url-pattern>
+        <url-pattern>/workbench/activity/save.do</url-pattern>
+        <url-pattern>/workbench/activity/pageList.do</url-pattern>
+        <url-pattern>/workbench/activity/deletes.do</url-pattern>
+        <url-pattern>/workbench/activity/getUser.do</url-pattern>
+        <url-pattern>/workbench/activity/detail.do</url-pattern>
+        <url-pattern>/workbench/activity/showRemarklist.do</url-pattern>
     </servlet-mapping>
 </web-app>

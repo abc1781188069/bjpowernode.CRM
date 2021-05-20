@@ -1,35 +1,51 @@
 package com.bjpowernode.crm.utils;
 
-
-import org.apache.ibatis.session.SqlSession;
-
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-public class UserInvocationHandler implements InvocationHandler {
+import org.apache.ibatis.session.SqlSession;
+
+public class UserInvocationHandler implements InvocationHandler{
+
     private Object target;
+
     public UserInvocationHandler(Object target){
+
         this.target = target;
+
     }
+
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        SqlSession session =null;
+
+        SqlSession session = null;
+
         Object obj = null;
+
         try{
-            session = sqlsessionUtil.getSqlSession();
-            obj = method.invoke(target,args);
+            session = SqlsessionUtil.getSqlSession();
+
+            obj = method.invoke(target, args);
+
             session.commit();
-        }catch (Exception e){
+        }catch(Exception e){
             session.rollback();
             e.printStackTrace();
-        }finally {
 
-            sqlsessionUtil.sqlClose(session);
+            //处理的是什么异常，继续往上抛什么异常
+            throw e.getCause();
+        }finally{
+            SqlsessionUtil.myClose(session);
         }
+
         return obj;
     }
+
     public Object getProxy(){
+
         return Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(),this);
+
     }
+
 }
